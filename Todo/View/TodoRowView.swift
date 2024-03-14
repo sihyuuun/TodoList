@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct TodoRowView: View {
     @Bindable var todo: Todo
@@ -19,6 +20,7 @@ struct TodoRowView: View {
                 Button(action: {
                     todo.isCompleted.toggle()
                     todo.lastUpdated = .now
+                    WidgetCenter.shared.reloadAllTimelines()
                 }, label: {
                     Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
                         .font(.title2)
@@ -64,6 +66,7 @@ struct TodoRowView: View {
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button("", systemImage: "trash") {
                 context.delete(todo)
+                WidgetCenter.shared.reloadAllTimelines()
             }
             .tint(.red)
         }
@@ -71,13 +74,17 @@ struct TodoRowView: View {
             if todo.task.isEmpty {
                 /// Deleting Empty Todo
                 context.delete(todo)
+                WidgetCenter.shared.reloadAllTimelines()
             }
         }
         .onChange(of: phase) { oldValue, newValue in
             if newValue != oldValue && todo.task.isEmpty {
                 context.delete(todo)
+                WidgetCenter.shared.reloadAllTimelines()
             }
-            
+        }
+        .task {
+            todo.isCompleted = todo.isCompleted
         }
     }
 }

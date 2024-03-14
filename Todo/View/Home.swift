@@ -17,7 +17,7 @@ struct Home: View {
     @State private var showAll: Bool = false
     var body: some View {
         List {
-            Section("") {
+            Section(activeSectionTitle) {
                 ForEach(activeList) {
                     TodoRowView(todo: $0)
                 }
@@ -41,7 +41,7 @@ struct Home: View {
             }
         }
         
-        var activeSelectionTitle: String {
+        var activeSectionTitle: String {
             let count = activeList.count
             return count == 0 ? "Active" : "Active (\(count))"
         }
