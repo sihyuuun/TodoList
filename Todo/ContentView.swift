@@ -13,6 +13,10 @@ struct ContentView: View {
             Home()
                 .navigationTitle("Todo List")
         }
+        .onAppear {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { _, _ in
+            }
+        }
     }
 }
 
