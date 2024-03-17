@@ -15,6 +15,9 @@ struct Home: View {
     /// Model Context
     @Environment(\.modelContext) private var context
     @State private var showAll: Bool = false
+    
+    @State private var showingSettings = false
+    
     var body: some View {
         List {
             Section(activeSectionTitle) {
@@ -27,6 +30,13 @@ struct Home: View {
             CompletedTodoList(showAll: $showAll)
         }
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) { // Adjust placement as needed
+                Button(action: {
+                    showingSettings = true
+                }, label: {
+                    Image(systemName: "gearshape")
+                })
+            }
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     /// Creating an Empty Todo Task
@@ -40,6 +50,9 @@ struct Home: View {
                 })
             }
         }
+        .sheet(isPresented: $showingSettings) {
+                        Settings()
+                    }
         
         var activeSectionTitle: String {
             let count = activeList.count

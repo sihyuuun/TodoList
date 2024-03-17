@@ -1,0 +1,18 @@
+//
+//  TestingPN.swift
+//  Todo
+//
+//  Created by 이시현 on 3/15/24.
+//
+
+{
+    "aps" : {
+        "alert" : {
+            "title" : "Test Notification",
+            "body" : ""
+        },
+        "badge" : 0
+    },
+    "Simulator Target Bundle": ""
+}
+

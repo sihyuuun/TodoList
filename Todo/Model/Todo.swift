@@ -39,6 +39,4 @@ enum Priority: String, Codable, CaseIterable {
             return .red
         }
     }
-    
-    
 }
